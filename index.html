@@ -6,12 +6,13 @@
     <title>AI Girlfriend</title>
     <style>
       html, body, #root {
-        width: 100%;
+        width: 100vw;
         height: 100vh;
-        height: 100dvh;
+        height: 100dvh !important;
+        max-height: 100dvh !important;
         margin: 0;
         padding: 0;
-        overflow: hidden;
+        overflow: hidden !important;
         position: fixed;
         top: 0;
         left: 0;
@@ -19,18 +20,40 @@
         bottom: 0;
         box-sizing: border-box;
       }
-      .cs-chat-container {
-        height: 100% !important;
+
+      /* Restrict top-level React container to dynamic viewport height */
+      #root > div {
+        height: 100dvh !important;
         max-height: 100dvh !important;
         overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        box-sizing: border-box !important;
+        padding-bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
       }
+
+      /* Dynamically scale Live2D canvas on mobile so bottom controls stay fully visible */
+      canvas {
+        max-height: calc(100dvh - 190px) !important;
+        object-fit: contain !important;
+      }
+
+      /* Ensure chat container and input area stay above mobile bottom bar */
+      .cs-chat-container, .cs-main-container {
+        height: 100% !important;
+        max-height: 100% !important;
+        overflow: hidden !important;
+      }
+
       .cs-message-list {
         flex: 1 1 auto !important;
         min-height: 0 !important;
       }
+
       .cs-message-input {
         flex-shrink: 0 !important;
-        padding-bottom: max(0.4em, env(safe-area-inset-bottom)) !important;
+        margin-bottom: max(8px, env(safe-area-inset-bottom, 8px)) !important;
+        padding-bottom: max(12px, env(safe-area-inset-bottom, 12px)) !important;
       }
     </style>
     <script>
