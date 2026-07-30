@@ -4,6 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Girlfriend</title>
+    <script>
+      // Self-healing script to clean corrupted localStorage keys
+      try {
+        const keys = ["modelInfo", "config", "live2d_config"];
+        keys.forEach(k => {
+          const v = localStorage.getItem(k);
+          if (v === "undefined" || v === "null") {
+            localStorage.removeItem(k);
+          } else if (v) {
+            try { JSON.parse(v); } catch (err) { localStorage.removeItem(k); }
+          }
+        });
+      } catch (e) {}
+    </script>
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#4a90e2" />
     <script type="module" crossorigin src="./assets/main-nu7uwxNJ.js"></script>
@@ -16,7 +30,10 @@
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/sw.js').then(
-            (reg) => console.log('ServiceWorker registered:', reg.scope),
+            (reg) => {
+              console.log('ServiceWorker registered:', reg.scope);
+              reg.update();
+            },
             (err) => console.error('ServiceWorker registration failed:', err)
           );
         });
