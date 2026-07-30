@@ -13,19 +13,22 @@
         overflow: hidden;
       }
 
-      /* Mobile-only layout fixes (DO NOT touch PC layout) */
+      /* Mobile layout adjustments */
       @media (max-width: 768px) {
+        /* Keep character grounded on the floor */
         canvas {
-          max-height: 58vh !important;
-          max-height: 58dvh !important;
-          object-fit: contain !important;
-        }
-        .cs-chat-container {
           height: 100% !important;
-          max-height: 100dvh !important;
+          width: 100% !important;
         }
+
+        /* Elevate bottom chat controls above Android navigation bar */
+        .cs-chat-container {
+          padding-bottom: max(20px, env(safe-area-inset-bottom, 20px)) !important;
+          box-sizing: border-box !important;
+        }
+
         .cs-message-input {
-          padding-bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
+          margin-bottom: max(12px, env(safe-area-inset-bottom, 12px)) !important;
         }
       }
     </style>
