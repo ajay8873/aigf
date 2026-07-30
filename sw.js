@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ai-pet-v1';
+const CACHE_NAME = 'ai-girlfriend-v1';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',

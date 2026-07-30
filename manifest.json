@@ -1,7 +1,7 @@
 {
-  "name": "AI Pet",
-  "short_name": "AI Pet",
-  "description": "Voice-interactive AI Pet VTuber Companion",
+  "name": "AI Girlfriend",
+  "short_name": "AI Girlfriend",
+  "description": "Voice-interactive AI Girlfriend VTuber Companion",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
