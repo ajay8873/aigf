@@ -1,6 +1,6 @@
 {
-  "name": "AI Girlfriend",
-  "short_name": "AI Girlfriend",
+  "name": "My Girl",
+  "short_name": "My Girl",
   "description": "Voice-interactive AI Girlfriend VTuber Companion",
   "start_url": "/",
   "display": "standalone",
