@@ -2,69 +2,42 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>AI Girlfriend</title>
     <style>
       html, body, #root {
-        width: 100vw;
-        height: 100vh;
-        height: 100dvh !important;
-        max-height: 100dvh !important;
+        width: 100%;
+        height: 100%;
         margin: 0;
         padding: 0;
-        overflow: hidden !important;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        box-sizing: border-box;
+        overflow: hidden;
       }
 
-      /* Restrict top-level React container to dynamic viewport height */
-      #root > div {
-        height: 100dvh !important;
-        max-height: 100dvh !important;
-        overflow: hidden !important;
-        display: flex !important;
-        flex-direction: column !important;
-        box-sizing: border-box !important;
-        padding-bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
-      }
-
-      /* Dynamically scale Live2D canvas on mobile so bottom controls stay fully visible */
-      canvas {
-        max-height: calc(100dvh - 190px) !important;
-        object-fit: contain !important;
-      }
-
-      /* Ensure chat container and input area stay above mobile bottom bar */
-      .cs-chat-container, .cs-main-container {
-        height: 100% !important;
-        max-height: 100% !important;
-        overflow: hidden !important;
-      }
-
-      .cs-message-list {
-        flex: 1 1 auto !important;
-        min-height: 0 !important;
-      }
-
-      .cs-message-input {
-        flex-shrink: 0 !important;
-        margin-bottom: max(8px, env(safe-area-inset-bottom, 8px)) !important;
-        padding-bottom: max(12px, env(safe-area-inset-bottom, 12px)) !important;
+      /* Mobile-only layout fixes (DO NOT touch PC layout) */
+      @media (max-width: 768px) {
+        canvas {
+          max-height: 58vh !important;
+          max-height: 58dvh !important;
+          object-fit: contain !important;
+        }
+        .cs-chat-container {
+          height: 100% !important;
+          max-height: 100dvh !important;
+        }
+        .cs-message-input {
+          padding-bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
+        }
       }
     </style>
     <script>
       // Self-healing script to clean corrupted localStorage keys
       try {
-        const keys = ["modelInfo", "config", "live2d_config"];
+        const keys = ["modelInfo", "config", "live2d_config", "model_info", "selectedModel"];
         keys.forEach(k => {
           const v = localStorage.getItem(k);
-          if (v === "undefined" || v === "null") {
+          if (!v || v === "undefined" || v === "null") {
             localStorage.removeItem(k);
-          } else if (v) {
+          } else {
             try { JSON.parse(v); } catch (err) { localStorage.removeItem(k); }
           }
         });
